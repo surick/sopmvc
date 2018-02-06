@@ -16,6 +16,5 @@
     <!-- 从当前路径算起 -->
     <import resource="spring/spring-service.xml"/>
     <import resource="spring/spring-dao.xml"/>
-    <import resource="shiro/spring-shiro.xml"/>
 
 </beans>

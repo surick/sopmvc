@@ -32,5 +32,5 @@
     </bean>
 
     <!--4:扫描web相关的bean-->
-    <context:component-scan base-package="common.controller.*"/>
+    <context:component-scan base-package="com.ljg.common.controller"/>
 </beans>
