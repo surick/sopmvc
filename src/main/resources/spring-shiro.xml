@@ -27,7 +27,7 @@
          -->
     </bean>
     <!-- custom shiro session listener -->
-    <bean id="customSessionListener" class="com.sojson.core.shiro.listenter.CustomSessionListener">
+    <bean id="customSessionListener" class="com.ljg.core.shiro.listenter.CustomSessionListener">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
     </bean>
     <!-- 用户信息记住我功能的相关配置 -->
@@ -50,12 +50,12 @@
 
 
     <!-- custom shiro session listener -->
-    <bean id="customShiroSessionDAO" class="com.sojson.core.shiro.CustomShiroSessionDAO">
+    <bean id="customShiroSessionDAO" class="com.ljg.core.shiro.CustomShiroSessionDAO">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
         <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
     </bean>
     <!-- 手动操作Session，管理Session -->
-    <bean id="customSessionManager" class="com.sojson.core.shiro.session.CustomSessionManager">
+    <bean id="customSessionManager" class="com.ljg.core.shiro.session.CustomSessionManager">
         <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
         <property name="customShiroSessionDAO" ref="customShiroSessionDAO"/>
     </bean>
@@ -74,16 +74,16 @@
         <property name="cacheManager" ref="customShiroCacheManager"/>
     </bean>
     <!-- 用户缓存 -->
-    <bean id="customShiroCacheManager" class="com.sojson.core.shiro.cache.impl.CustomShiroCacheManager">
+    <bean id="customShiroCacheManager" class="com.ljg.core.shiro.cache.impl.CustomShiroCacheManager">
         <property name="shiroCacheManager" ref="jedisShiroCacheManager"/>
     </bean>
 
     <!-- shiro 缓存实现，对ShiroCacheManager，我是采用redis的实现 -->
-    <bean id="jedisShiroCacheManager" class="com.sojson.core.shiro.cache.impl.JedisShiroCacheManager">
+    <bean id="jedisShiroCacheManager" class="com.ljg.core.shiro.cache.impl.JedisShiroCacheManager">
         <property name="jedisManager" ref="jedisManager"/>
     </bean>
     <!-- redis 的缓存 -->
-    <bean id="jedisManager" class="com.sojson.core.shiro.cache.JedisManager">
+    <bean id="jedisManager" class="com.ljg.core.shiro.cache.JedisManager">
         <property name="jedisPool" ref="jedisPool"/>
     </bean>
     <!-- 静态注入，相当于调用SecurityUtils.setSecurityManager(securityManager) -->
@@ -92,12 +92,12 @@
         <property name="arguments" ref="securityManager"/>
     </bean>
     <!-- session 校验单个用户是否多次登录 -->
-    <bean id="kickoutSessionFilter"   class="com.sojson.core.shiro.filter.KickoutSessionFilter">
+    <bean id="kickoutSessionFilter"   class="com.ljg.core.shiro.filter.KickoutSessionFilter">
         <property name="kickoutUrl" value="/u/login.shtml?kickout"/>
     </bean>
     <!-- 静态注入 jedisShiroSessionRepository-->
     <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="staticMethod" value="com.sojson.core.shiro.filter.KickoutSessionFilter.setShiroSessionRepository"/>
+        <property name="staticMethod" value="com.ljg.core.shiro.filter.KickoutSessionFilter.setShiroSessionRepository"/>
         <property name="arguments" ref="jedisShiroSessionRepository"/>
     </bean>
 
@@ -105,7 +105,7 @@
 
 
     <!-- 授权 认证 -->
-    <bean id="sampleRealm" class="com.sojson.core.shiro.token.SampleRealm" ></bean>
+    <bean id="sampleRealm" class="com.ljg.core.shiro.token.SampleRealm" ></bean>
 
 
 
@@ -133,7 +133,7 @@
         <property name="sessionIdCookie" ref="sessionIdCookie"/>
     </bean>
     <!-- session 创建、删除、查询 -->
-    <bean id="jedisShiroSessionRepository" class="com.sojson.core.shiro.cache.JedisShiroSessionRepository" >
+    <bean id="jedisShiroSessionRepository" class="com.ljg.core.shiro.cache.JedisShiroSessionRepository" >
         <property name="jedisManager" ref="jedisManager"/>
     </bean>
 
@@ -143,11 +143,11 @@
     -->
 
     <!-- 认证数据库存储-->
-    <bean id="shiroManager" class="com.sojson.core.shiro.service.impl.ShiroManagerImpl"/>
-    <bean id="login" class="com.sojson.core.shiro.filter.LoginFilter"/>
-    <bean id="role" class="com.sojson.core.shiro.filter.RoleFilter"/>
-    <bean id="permission" class="com.sojson.core.shiro.filter.PermissionFilter"/>
-    <bean id="simple" class="com.sojson.core.shiro.filter.SimpleAuthFilter"/>
+    <bean id="shiroManager" class="com.ljg.core.shiro.service.impl.ShiroManagerImpl"/>
+    <bean id="login" class="com.ljg.core.shiro.filter.LoginFilter"/>
+    <bean id="role" class="com.ljg.core.shiro.filter.RoleFilter"/>
+    <bean id="permission" class="com.ljg.core.shiro.filter.PermissionFilter"/>
+    <bean id="simple" class="com.ljg.core.shiro.filter.SimpleAuthFilter"/>
 
 
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
